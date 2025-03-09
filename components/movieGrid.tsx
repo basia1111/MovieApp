@@ -2,14 +2,17 @@
 
 import { useMovies } from "@/context/MoviesContext";
 import Link from "next/link";
+import LoadingState from "@/components/states/LoadingState";
+import NotFoundState from "@/components/states/NotFoundState";
+import ErrorState from "@/components/states/ErrorState";
 import { Star } from "lucide-react";
 
 const MovieGrid = () => {
   const { movies, loading, error } = useMovies();
 
-  if (loading) return <div className="text-center p-8">Loading movies...</div>;
-  if (error) return <div className="text-center text-error p-8">Error: {error}</div>;
-  if (!movies || movies.length === 0) return <div className="text-center p-8">No movies found</div>;
+  if (loading) return <LoadingState height="h-56" />;
+  if (error) return <ErrorState message={error} />;
+  if (!movies || movies.length === 0) return <NotFoundState message="No movies found." />;
 
   return (
     <div className="grid   grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-6 gap-4 py-6">

@@ -6,18 +6,10 @@ import { MovieDetailsResponse } from "@/types";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-
-const LoadingState = () => {
-  return <div className="text-center p-8">Loading movie details...</div>;
-};
-
-const ErrorState = ({ error }: { error: string }) => {
-  return <div className="text-center p-8 text-error">Error: {error}</div>;
-};
-
-const NotFoundState = () => {
-  return <div className="text-center p-8">Movie not found</div>;
-};
+import Spinner from "@/components/spinner";
+import LoadingState from "@/components/states/LoadingState";
+import NotFoundState from "@/components/states/NotFoundState";
+import ErrorState from "@/components/states/ErrorState";
 
 const BackdropImage = ({ backdropPath, title }: { backdropPath: string | null; title: string }) => {
   if (!backdropPath) return null;
@@ -69,7 +61,6 @@ const MovieHeader = ({ title, releaseDate, voteAverage, voteCount }: { title: st
   );
 };
 
-// Genre pills component
 const GenrePills = ({ genres }: { genres?: { id: number; name: string }[] }) => {
   if (!genres || genres.length === 0) return null;
 
@@ -147,9 +138,9 @@ export default function MoviePage({ params }: { params: { id: string } }) {
     fetchMovie();
   }, [params.id]);
 
-  if (loading) return <LoadingState />;
-  if (error) return <ErrorState error={error} />;
-  if (!movie) return <NotFoundState />;
+  if (loading) return <LoadingState height="h-screen" />;
+  if (error) return <ErrorState message={error} />;
+  if (!movie) return <NotFoundState message="We couldn't find requested movie" />;
 
   return (
     <div className="text-white">

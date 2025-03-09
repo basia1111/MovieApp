@@ -5,37 +5,50 @@ import axios from "axios";
 import { Category } from "@/types";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import LoadingState from "@/components/states/LoadingState";
+import NotFoundState from "@/components/states/NotFoundState";
+import ErrorState from "@/components/states/ErrorState";
 
 const SideBar = () => {
   const [catList, setCatList] = useState<Category[] | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   const currentCategory = usePathname().slice(1);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        setIsLoading(true);
+        setLoading(true);
         const response = await axios.get("/api/categories");
         setCatList(response.data.allCategories);
       } catch (error) {
         console.error("Error fetching categories:", error);
+        setError("Failed to load categories.");
         setCatList(null);
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
 
     fetchCategories();
   }, []);
 
+  if (loading)
+    return (
+      <div className="sidebar md:p-8 bg-bg-card w-64 min-h-screen hidden md:block ">
+        {" "}
+        <LoadingState height="h-full" />
+      </div>
+    );
+  if (error) return <ErrorState message={error} />;
+  if (!catList || catList.length === 0) return <NotFoundState message="No categories." />;
+
   return (
     <div className="sidebar md:p-8 bg-bg-card w-64 min-h-screen hidden md:block ">
       <h2 className="text-l font-bold mb-4 text-white pb-2 ">Categories</h2>
 
-      {isLoading ? (
-        <p className="text-text-secondary animate-pulse">Loading categories...</p>
-      ) : catList && catList.length > 0 ? (
+      {catList && catList.length > 0 ? (
         <ul className="space-y-2">
           {catList.map((category) => (
             <li
