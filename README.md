@@ -1,6 +1,3 @@
-Sure! Below is an example of a README file with installation instructions for your Next.js app that displays movies from TMDB (The Movie Database):
-
----
 
 # Next.js TMDB Movie App
 
