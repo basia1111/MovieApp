@@ -20,7 +20,6 @@ export const MoviesContextProvider = ({ children }: { children: ReactNode }) => 
     try {
       setLoading(true);
       const response = await axios.get("/api/movies");
-      console.log(response.data.allMovies.results);
       setMovies(response.data.allMovies.results);
 
       setError(null);

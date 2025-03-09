@@ -1,15 +1,17 @@
 "use client";
-
-import { useMovies } from "@/context/MoviesContext";
 import Link from "next/link";
 import LoadingState from "@/components/states/LoadingState";
 import NotFoundState from "@/components/states/NotFoundState";
 import ErrorState from "@/components/states/ErrorState";
 import { Star } from "lucide-react";
+import { Movie } from "@/types";
 
-const MovieGrid = () => {
-  const { movies, loading, error } = useMovies();
-
+interface MovieGrid {
+  movies: Movie[] | null;
+  loading: boolean;
+  error: string | null;
+}
+const MovieGrid = ({ movies, loading, error }: MovieGrid) => {
   if (loading) return <LoadingState height="h-56" />;
   if (error) return <ErrorState message={error} />;
   if (!movies || movies.length === 0) return <NotFoundState message="No movies found." />;

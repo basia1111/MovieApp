@@ -1,5 +1,7 @@
+"use client";
 import MovieGrid from "@/components/movieGrid";
 import { Button } from "@/components/ui/button";
+import { useMovies } from "@/context/MoviesContext";
 import Link from "next/link";
 
 const HeroSection = () => {
@@ -29,13 +31,20 @@ const CategoriesSection = () => {
         <h2 className="text-l md:text-2xl font-bold">Popular Categories</h2>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {["Action", "Comedy", "Drama", "Horror", "Documentary", "Thriller"].map((category) => (
+        {[
+          { name: "Action", id: "28" },
+          { name: "Comedy", id: "35" },
+          { name: "Drama", id: "18" },
+          { name: "Horror", id: "27" },
+          { name: "Documentary", id: "99" },
+          { name: "Thriller", id: "53" },
+        ].map((category) => (
           <Link
-            key={category}
-            href={`/${category.toLowerCase()}`}
+            key={category.name}
+            href={`/${category.id}?cat=${category.name}`}
             className="bg-bg-card hover:bg-hover md:text-base text-xs transition-colors md:p-4 p-2 rounded-md text-center font-medium"
           >
-            {category}
+            {category.name}
           </Link>
         ))}
       </div>
@@ -44,12 +53,14 @@ const CategoriesSection = () => {
 };
 
 const MovieGridSection = () => {
+  const { movies, loading, error } = useMovies();
+
   return (
     <section className=" py-4 mb-8">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-l md:text-2xl font-bold">Popular Movies</h2>
       </div>
-      <MovieGrid />
+      <MovieGrid movies={movies} loading={loading} error={error} />
     </section>
   );
 };

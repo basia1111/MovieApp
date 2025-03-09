@@ -57,7 +57,7 @@ const SideBar = () => {
                 currentCategory === category.id.toString() ? "bg-hover" : null
               } p-2 text-text-secondary hover:bg-hover active:bg-active focus:outline-none focus:ring-1 focus:ring-focus rounded transition-colors cursor-pointer text-sm`}
             >
-              <Link href={`/${category.id}`}>
+              <Link href={`/${category.id}?cat=${category.name}`}>
                 <span>{category.name}</span>
               </Link>
             </li>
