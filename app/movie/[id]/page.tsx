@@ -6,7 +6,6 @@ import { MovieDetailsResponse } from "@/types";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import Spinner from "@/components/spinner";
 import LoadingState from "@/components/states/LoadingState";
 import NotFoundState from "@/components/states/NotFoundState";
 import ErrorState from "@/components/states/ErrorState";

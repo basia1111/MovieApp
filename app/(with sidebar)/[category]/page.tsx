@@ -6,7 +6,7 @@ import { Movie } from "@/types";
 import { usePathname, useSearchParams } from "next/navigation";
 import MovieGrid from "@/components/movieGrid";
 
-export default function CategoryPage({ params }: { params: { category: string } }) {
+export default function CategoryPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
