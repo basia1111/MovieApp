@@ -11,7 +11,7 @@ export default function RootLayout({
     <MoviesContextProvider>
       <div className="flex">
         <SideBar />
-        <div className="m-auto sm:p-12 p-4 ">
+        <div className="mx-auto sm:p-12 p-4 md:w-3/4 w-full">
           <div className="max-w-[1200px]">{children}</div>
         </div>
       </div>

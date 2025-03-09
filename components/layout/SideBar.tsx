@@ -30,7 +30,7 @@ const SideBar = () => {
   }, []);
 
   return (
-    <div className="sidebar md:p-8 bg-bg-card w-64 min-h-screen hidden md:block">
+    <div className="sidebar md:p-8 bg-bg-card w-64 min-h-screen hidden md:block ">
       <h2 className="text-l font-bold mb-4 text-white pb-2 ">Categories</h2>
 
       {isLoading ? (
