@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { MovieDetailsResponse } from "@/types";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import LoadingState from "@/components/states/LoadingState";
@@ -114,11 +114,12 @@ const MovieDetails = ({ runtime, originalLanguage, releaseDate }: { runtime?: nu
   );
 };
 
-export default function MoviePage({ params }: { params: { id: string } }) {
+export default function MoviePage() {
   const [movie, setMovie] = useState<MovieDetailsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const params = useParams();
   useEffect(() => {
     const fetchMovie = async () => {
       try {
